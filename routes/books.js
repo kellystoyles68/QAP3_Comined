@@ -22,7 +22,7 @@ let extra_books = [
 ];
 
 //Get all books
-router.get("/", (req, res) => {
+router.get("/views", (req, res) => {
   res.json(extra_books);
 });
 
