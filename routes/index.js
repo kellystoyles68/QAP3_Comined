@@ -8,6 +8,7 @@
 //Import modules
 //import express from library
 const express = require("express");
+const router = express.Router();
 //get express layout
 const expressLayouts = require("express-ejs-layouts");
 //import path module to work with file and directory paths
@@ -20,8 +21,8 @@ const { Pool } = require("pg");
 const bodyParser = require("body-parser");
 
 //import router
-const indexRouter = require("./routes/index");
-const bookRoutes = require("./routes /books");
+const indexRouter = require("./index");
+const bookRoutes = require("./routes/books");
 
 //create server
 const app = express();
@@ -50,29 +51,6 @@ app.use(bodyParser.urlencoded({ entednded: true }));
 
 //define routes
 app.use("/books", bookRoutes);
-
-//set up our database connection
-const pool = new Pool({
-  user: "postgres",
-  password: "password",
-  host: "localhost",
-  port: 5432,
-  database: "My_Florida_Library",
-});
-
-//checking if coonection is false , send error message
-pool.on("error", (err, client) => {
-  console.error("Unexpected Error", err);
-  process.exit(-1);
-});
-//on connection, console message that you are connected to the database
-pool.connect((err, client, release) => {
-  if (err) {
-    return console.error("Error acquiring client", err.stack);
-  }
-  console.log("Connected to PostgresSQL");
-  release();
-});
 
 //set our app to use our router
 app.use("/", indexRouter);

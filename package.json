@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "jest",
-    "start": "node server.js",
-    "devStart": " nodemon server.js"
+    "start": "node routes/index.js",
+    "devStart": " nodemon routes/index.js"
   },
   "keywords": [],
   "author": "",
