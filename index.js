@@ -15,12 +15,13 @@ const path = require("path");
 //import method override
 const methodOverride = require("method-override");
 //import Postgres
-const { Pool } = require("pg")
+const { Pool } = require("pg");
 //import body Parser
 const bodyParser = require("body-parser");
 
 //import router
 const indexRouter = require("./routes/index");
+const bookRoutes = require("./routes /books");
 
 //create server
 const app = express();
@@ -42,13 +43,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 //set up the process of JSON information (used with fetch and API)
 app.use(express.json());
-// ser up parsing
-app.use (bodyParser.json());
+// set up parsing
+app.use(bodyParser.json());
 ////set up our middleware for parsing
-app.use (bodyParser.urlendocded ({entednded:true}));
+app.use(bodyParser.urlencoded({ entednded: true }));
 
 //define routes
-constbookRoutes = require(./routes/books)
 app.use("/books", bookRoutes);
 
 //set up our database connection
@@ -77,9 +77,5 @@ pool.connect((err, client, release) => {
 //set our app to use our router
 app.use("/", indexRouter);
 //listen from port
-const PORT = preocess.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(process.env.PORT || 3000, () => console.log("Server Started"));
-
-
-
-

@@ -51,4 +51,8 @@ router.delete("/:ISBN", (req, res) => {
   res.status(204).end();
 });
 
+router.get("/views", (req, res) => {
+  res.render("book", { extra_books });
+});
+
 module.exports = router;
