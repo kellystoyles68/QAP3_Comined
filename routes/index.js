@@ -22,7 +22,18 @@ const bodyParser = require("body-parser");
 
 //import router
 const indexRouter = require("./index");
-const bookRoutes = require("./routes/books");
+const bookRoutes = require("./books");
+const bookModel = require("../models/bookModel");
+
+// Define your routes here
+router.get("/books", async (req, res) => {
+  try {
+    const books = await bookModel.getBook();
+    res.json(books);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 
 //create server
 const app = express();
@@ -44,16 +55,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 //set up the process of JSON information (used with fetch and API)
 app.use(express.json());
+//set up our middleware for parsing
+app.use(bodyParser.urlencoded({ entednded: true }));
 // set up parsing
 app.use(bodyParser.json());
-////set up our middleware for parsing
-app.use(bodyParser.urlencoded({ entednded: true }));
 
 //define routes
-app.use("/books", bookRoutes);
+router.use("/books", bookRoutes);
 
 //set our app to use our router
 app.use("/", indexRouter);
 //listen from port
 const PORT = process.env.PORT || 3000;
 app.listen(process.env.PORT || 3000, () => console.log("Server Started"));
+
+module.exports = router;

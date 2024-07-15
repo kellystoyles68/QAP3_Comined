@@ -3,7 +3,6 @@ const util = require("util");
 const express = require("express");
 const router = express.Router();
 const { Pool } = require("pg");
-const dal = require("../dal/dal");
 
 //set up our database connection
 const pool = new Pool({
@@ -29,13 +28,11 @@ pool.connect((err, client, release) => {
 });
 
 //setting up our query function
-pool.query = util.promisify(pool.query);
+//pool.query = util.promisify(pool.query);
 
 const AllExtraBooks = async () => {
   return await pool.query("SELECT * FROM  books");
 };
-
-const { getBooks } = Require("./models/bookModel");
 
 //Mock Data array
 let extra_books = [
@@ -76,7 +73,7 @@ const createBook = async (book) => {
 const updateBook = async (ISBN, book) => {
   const { title, author, genre, year_published } = book;
   const res = await pool.query(
-    "UPDATE books SET title = $1, author = $2, genre = $3, year_published = $4 WHERE ISBN = $5",
+    "Update books set title = $1, author = $2, genre = $3, year_published = $4 WHERE ISBN = $5",
     [title, author, genre, year_published, ISBN]
   );
   return res.rows;
@@ -84,7 +81,7 @@ const updateBook = async (ISBN, book) => {
 
 //Delete a book
 const deleteBook = async (ISBN) => {
-  const res = await pool.query("DELETE FROM books WHERE ISBN = $1", [ISBN]);
+  const res = await pool.query("Delete from books where ISBN = $1", [ISBN]);
   return res.rows;
 };
 

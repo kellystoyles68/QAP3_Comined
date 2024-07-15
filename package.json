@@ -1,7 +1,7 @@
 {
   "name": "qap3_comined",
   "version": "1.0.0",
-  "description": "This ia code for a combines project for FullStack and Database",
+  "description": "This is the code for a combined project for FullStack and Database",
   "main": "server.js",
   "scripts": {
     "test": "jest",

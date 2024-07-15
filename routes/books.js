@@ -22,8 +22,8 @@ let extra_books = [
 ];
 
 //Get all books
-router.get("/views", (req, res) => {
-  res.json(extra_books);
+router.get("books", (req, res) => {
+  res.send("List of Books");
 });
 
 //Post a new book
